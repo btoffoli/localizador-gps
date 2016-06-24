@@ -1,6 +1,6 @@
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine, MetaData, func, funcfilter
 from sqlalchemy.orm import sessionmaker
 from geoAlchemy2ExtensaoPostgis import Geometry, WKTElement
 
@@ -25,9 +25,9 @@ Session = sessionmaker(bind=engine)
 
 sessao = Session()
 
-l = sessao.query(Leitura).first()
+l = sessao.query(Leitura, func.ST_X(Leitura.localizacao).label('longitude')).first()
 
-print('%f' % l.localizacao.longitude())
+print('%f' % l.longitude)
 
 
 
