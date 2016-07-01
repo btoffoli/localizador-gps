@@ -1,10 +1,14 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from threading import currentThread
+from datetime import datetime
 
 class __DBConfig:
 
     def __init__(self):
         self.__sessionFactory = sessionmaker(bind=self.poolEngine)
+        #TODO verificar threadsafe qnd não houver mais GLI
+        self.__sessions = {}
 
     @property
     def url(self):
@@ -26,8 +30,11 @@ class __DBConfig:
 
     @property
     def session(self):
-        #TODO verificar app qnd for thread de verdade
-        return self.sessionFactory()
+        currentSessionTuple = self.__sessions[currentThread()]
+        if not currentSessionTuple:
+            currentSessionTuple  =  self.__sessions[currentThread()] = (dateTime.now(), self.sessionFactory)
+
+        return currentSessionTuple[1]
 
 
 

@@ -15,6 +15,13 @@ __Base.prepare(__engine, reflect=True)
 Leitura = __Base.classes.leitura
 TipoDispositivo = __Base.classes.tipo_dispositivo
 Dispositivo = __Base.classes.dispositivo
+
+"""
+    Fields:
+    codigo       | character varying(255)   | not null
+    nome         | character varying(255)   | not null
+    atributos    | public.hstore            | not null default ''::public.hstore
+"""
 Item = __Base.classes.item
 Instalacao = __Base.classes.instalacao
 
