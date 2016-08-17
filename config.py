@@ -12,7 +12,7 @@ class __DBConfig:
 
     @property
     def url(self):
-        return 'postgresql://geocontrol:geo007@localhost:5432/azimute'
+        return 'postgresql://geocontrol:geo007@localhost:25432/azimute'
 
     @property
     def schema(self):
@@ -28,13 +28,12 @@ class __DBConfig:
             self.__sessionFactory = sessionmaker(bind=self.poolEngine)
         return self.__sessionFactory
 
-    @property
-    def session(self):
-        currentSessionTuple = self.__sessions[currentThread()]
-        if not currentSessionTuple:
-            currentSessionTuple  =  self.__sessions[currentThread()] = (dateTime.now(), self.sessionFactory)
 
-        return currentSessionTuple[1]
+    def session(self):
+        currentSessionTuple = self.__sessions.get(currentThread())
+        if not currentSessionTuple:
+            currentSessionTuple  =  self.__sessions[currentThread()] = (datetime.now(), self.sessionFactory)
+        return currentSessionTuple[1]()
 
 
 
