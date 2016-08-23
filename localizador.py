@@ -4,20 +4,25 @@ from models import Item, Leitura, Instalacao
 
 class LocalizadorService:
 
+    # TODO metodo inserirDispositivo, mapear tipo_dispositivo
+    # TODO mapear dispositvo e item em instalacao
+    #
+    def inserirDispositivo(self, tipo, codigo, nome, **kwargs):
+        return
+
+
+
     def inserirItem(self, **kwargs):
         nome = kwargs.get('nome')
         codigo = kwargs.get('codigo')
         nomeDispositivo = kwargs.get('nomeDispositivo')
-        self
         sessao = dbConfig.session()
 
         it = self.obterItemPorCodigo(codigo)
         if not it:
             it = Item(nome=nome, codigo=codigo)
             sessao.add(it)
-
-
-
+        #Verificar existencia do item, codigo e instalacao
         sessao.commit()
         return it
 
