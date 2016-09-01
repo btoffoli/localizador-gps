@@ -1,8 +1,7 @@
 import datetime
 
 from config import dbConfig
-from db.localizador_db import Dispositivo
-from models import Item, Leitura, Instalacao, TipoDispositivo
+from models import Item, Leitura, Instalacao, Dispositivo, TipoDispositivo
 from datetime import datetime
 
 
@@ -14,7 +13,7 @@ class LocalizadorService:
 
     @property
     def __sessao(self):
-        dbConfig.session()
+        return dbConfig.session()
 
     def inserirDispositivo(self, tipo, codigo, nome, commit=True):
         disp = self.obterDispositivoPorCodigo()
@@ -26,7 +25,7 @@ class LocalizadorService:
         return disp
 
     def inserirTipoDispositivo(self, codigo, nome, commit=True):
-        tpDisp = self.obterTipoDispositivoPorCodigo()
+        tpDisp = self.obterTipoDispositivoPorCodigo(codigo)
         if not tpDisp:
             tpDisp = TipoDispositivo(nome=nome, codigo=codigo)
             self.__sessao.add(tpDisp)
@@ -40,7 +39,6 @@ class LocalizadorService:
         sessao.add(inst)
         if commit:
             sessao.commit()
-
         return inst
 
 
@@ -116,7 +114,7 @@ class LocalizadorService:
             tpDisp = tipos[0]
         return tpDisp
 
-    def inserirItemCompleto(self, nomeItem, codigoItem, nome):
+    def inserirItemEDispositivoComInstalacao(self, nomeItem, codigoItem, listaDispositivo, dataInstalacao=datetime.now):
         pass
 
 

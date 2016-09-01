@@ -14,8 +14,16 @@ class LocalizadorTest(unittest.TestCase):
         item = self.service.obterItemPorNome('lala')
         print(item.nome)
 
-    def test_inserirLeitura(self):
-        leitura = self.service.inserirLeitura('lala', datetime.now(), -40.00, -20.00)
+    def test_inserirTipoDispositivo(self):
+        tipo = self.service.inserirTipoDispositivo('tipoLala', 'nomeLala')
+        print(tipo.nome)
+
+
+    # def test_inserirDispositivo(self):
+    #     self.service.inserirDispositivo()
+
+    # def test_inserirLeitura(self):
+    #     leitura = self.service.inserirLeitura('lala', datetime.now(), -40.00, -20.00)
 
 
 
