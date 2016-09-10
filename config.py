@@ -32,8 +32,8 @@ class __DBConfig:
     def session(self):
         currentSessionTuple = self.__sessions.get(currentThread())
         if not currentSessionTuple:
-            currentSessionTuple  =  self.__sessions[currentThread()] = (datetime.now(), self.sessionFactory)
-        return currentSessionTuple[1]()
+            currentSessionTuple  =  self.__sessions[currentThread()] = (datetime.now(), self.sessionFactory())
+        return currentSessionTuple[1]
 
 
 
